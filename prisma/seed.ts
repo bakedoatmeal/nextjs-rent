@@ -13,6 +13,7 @@ async function main() {
       address: '4057 Avenue Van Horne',
       year: 2020,
       rent: 2000,
+      userId: ''
     },
   })
 }

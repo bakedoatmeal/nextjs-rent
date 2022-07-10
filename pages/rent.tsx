@@ -7,14 +7,27 @@ const AllRentsQuery = gql`
     rentLogs {
       id
       name
-      email
       rentalType
+      rentalSize
       address
       year
       rent
     }
   }
 `
+
+function formatSize (rentalSize) {
+  switch (rentalSize) {
+    case 'TWOANDAHALF':
+      return '2 1/2 (Studio)';
+    case 'THREEANDAHALF':
+      return '3 1/2 (One bedroom)';
+    case 'FOURANDAHALF':
+      return '4 1/2 (Two bedrooms)';
+      case 'FIVEANDAHALF':
+        return '5 1/2 (Three bedrooms)';
+  }
+}
 
 export default function RentPage() {
 
@@ -65,13 +78,19 @@ export default function RentPage() {
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
                         >
-                          Email
+                          Rent
                         </th>
                         <th
                           scope="col"
                           className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
                         >
                           Address
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+                        >
+                          Rental Size
                         </th>
                         <th
                           scope="col"
@@ -89,19 +108,16 @@ export default function RentPage() {
                                           {item.name}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
-                                          <a href={`mailto:${item.email}`}>{item.email}</a>
+                                          <span>{item.rent}$</span>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white truncate">
-                                          <Link href={`/feedback/${item.id}`}>
-                                            {item.address}
-                                          </Link>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
+                                          <span>{item.address}</span>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap capitalize">
-                                          <span
-                                            className={`flex-shrink-0 inline-block px-2 py-0.5 text-xs font-medium rounded-full ${formatFeedbackType(
-                                              item.rentalType
-                                            )}`}
-                                          >
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
+                                          <span>{formatSize(item.rentalSize)}</span>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
+                                          <span>                                          
                                             {item.rentalType.toLowerCase()}
                                           </span>
                                         </td>

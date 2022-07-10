@@ -14,13 +14,11 @@ model RentLog {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name String
-  email String
-  rentalType RentalType @default(APARTMENT)
+  rentalType String
   rentalSize String
   address String 
   year Int
-  rent Int
+  rent Int?
 }
 
 enum RentalSizeType {
@@ -34,4 +32,17 @@ enum RentalType {
   APARTMENT
   HOUSE
   DUPLEX
+}
+
+model User {
+  id String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String?  @unique
+  role      Role     @default(USER)
+}
+
+enum Role {
+  USER
+  ADMIN
 }
