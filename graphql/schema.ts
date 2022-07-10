@@ -16,4 +16,10 @@ export const typeDefs = gql`
     rentLogs: [RentLog]!
   }
 
+  type Mutation {
+    createRentLog(name: String!, email: String!, rentalType: String!, rentalSize: String!, address: String!, year: Int!, rent: Int!): RentLog!
+    deleteRentLog(id: String!): RentLog!
+    updateRentLog(name: String!, email: String!, rentalType: String!, rentalSize: String!, address: String!, year: Int!, rent: Int!): RentLog!
+  }
+
 `;
