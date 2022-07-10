@@ -40,9 +40,9 @@ export const createRentLogMutation = extendType({
       },
       async resolve(_parent, args, ctx) {
 
-        if (!ctx.user) {
-          throw new Error(`You need to be logged in to perform an action`)
-        }
+        // if (!ctx.user) {
+        //   throw new Error(`You need to be logged in to perform an action`)
+        // }
 
         const rentLog = {
           address: args.address,
