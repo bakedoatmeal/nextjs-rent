@@ -1,6 +1,9 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import {gql, useQuery} from '@apollo/client'
+import {gql, useMutation, useQuery} from '@apollo/client'
+import { deleteRentLogMutation } from 'graphql/types';
+import {getSession, useUser} from '@auth0/nextjs-auth0'
+import toast from 'react-hot-toast';
 
 const AllRentsQuery = gql`
   query {
@@ -11,6 +14,15 @@ const AllRentsQuery = gql`
       address
       year
       rent
+    }
+  }
+`
+
+const DeleteLinkMutation = gql`
+  mutation($id: String!) {
+    deleteRentLog(id: $id, address: $address) {
+      id
+      address
     }
   }
 `
@@ -79,6 +91,7 @@ export default function RentPage() {
                         >
                           Rental Type
                         </th>
+              
                       </tr>
                     </thead>
                     
@@ -90,7 +103,7 @@ export default function RentPage() {
                                           <span>{item.rent}$</span>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
-                                          <span>{item.address}</span>
+                                          {item.address}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
                                           <span>{formatSize(item.rentalSize)}</span>
@@ -100,6 +113,8 @@ export default function RentPage() {
                                             {item.rentalType.toLowerCase()}
                                           </span>
                                         </td>
+                    
+                
                                       </tr>
                                     ))}
                     </tbody>
@@ -112,4 +127,22 @@ export default function RentPage() {
       </main>
     </div>
   );
+}
+
+export const getServerSideProps = async ({ req, res }) => {
+  const session = getSession(req, res)
+
+  if (!session) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/api/auth/login',
+      },
+      props: {},
+    }
+  }
+
+  return {
+    props: {},
+  }
 }

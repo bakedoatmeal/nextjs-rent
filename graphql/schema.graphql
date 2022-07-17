@@ -4,10 +4,12 @@
 
 type Mutation {
   createRentLog(address: String!, rent: Int!, rentalSize: String!, rentalType: String!, year: Int!): RentLog!
+  deleteRentLog(id: String!): RentLog!
 }
 
 type Query {
   rentLogs: [RentLog]!
+  rentLogsFind(id: String!): RentLog!
 }
 
 type RentLog {

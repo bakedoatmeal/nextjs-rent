@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+button {
+  background-color: blue;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  color: white;
+  margin-top: 20%;
+}

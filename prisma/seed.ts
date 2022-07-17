@@ -6,7 +6,6 @@ const prisma = new PrismaClient()
 async function main() {
   await prisma.rentLog.create({
     data: {
-      name: `Jane`,
       email: `jane@hotmail.com`, 
       rentalType: 'APARTMENT',
       rentalSize: 'THREEANDAHALF',
